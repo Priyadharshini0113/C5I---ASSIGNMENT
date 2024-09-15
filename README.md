@@ -284,3 +284,32 @@ Stores customer queries and their responses.
      ```
    - The frontend should be running and accessible at [http://localhost:3000](http://localhost:3000).
 
+# LLM Integration: Challenges and Solutions
+
+### LLM Used
+- **LLM:** Google Generative AI
+- **Model:** gemini-1.5-flash
+
+### Challenges Faced and Solutions Implemented
+
+#### Handling Complex Queries
+- **Challenge:** Natural language queries can be highly variable and complex, making it difficult for the LLM to consistently generate valid SQL queries that align with the database schema.
+- **Solution:** Define a comprehensive schema and use specific prompts to guide the LLM in generating accurate SQL queries. The schema provides context and constraints, ensuring the queries are relevant to the database structure.
+
+#### Validating Query Output
+- **Challenge:** The LLM might generate queries that are either invalid or not executable due to syntax errors or logical issues.
+- **Solution:** Implement validation mechanisms to check if the generated SQL query is valid. If the query is invalid or contains errors, provide a clear error message to the user, indicating that the query could not be processed.
+
+#### Handling Ambiguous Queries
+- **Challenge:** User queries can be ambiguous or unclear, leading to incorrect or incomplete SQL queries.
+- **Solution:** Use specific and structured prompts to minimize ambiguity. Provide feedback mechanisms to inform users if their queries are unclear and request additional details or rephrasing if needed.
+
+#### Managing API Integration
+- **Challenge:** Integrating with the Google Generative AI API requires proper configuration and handling of API responses, including managing rate limits and error responses.
+- **Solution:** Implement robust error handling and logging to manage API integration issues. Ensure that the API keys and configurations are correctly set up and that the system can handle any issues gracefully.
+
+#### Ensuring Performance and Scalability
+- **Challenge:** Real-time query processing might impact performance, especially if the LLM is used frequently or with large volumes of data.
+- **Solution:** Optimize the API calls and query handling to ensure efficient processing. Consider implementing caching strategies and load balancing to manage performance and scalability.
+
+By leveraging the `gemini-1.5-flash` model from Google Generative AI and addressing these challenges with targeted solutions, the integration ensures effective handling of natural language queries and reliable generation of SQL queries, enhancing the overall functionality and usability of the chatbot system.
