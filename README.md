@@ -343,8 +343,6 @@ By incorporating an open-source Large Language Model (LLM) via the Gemini API, t
 
 The project’s architecture includes a well-defined database schema to manage customer and sales data efficiently, and RESTful API endpoints facilitate smooth communication between the frontend and backend. The integration of LLM into the system has been carefully addressed to handle complex and ambiguous queries, validate SQL queries, and manage API performance.
 
-Through meticulous design and implementation, the chatbot not only enhances customer interaction but also streamlines support operations for retail businesses. The system’s real-time capabilities, combined with its minimalistic and user-friendly interface, deliver a practical solution for improving customer satisfaction and operational efficiency.
-
 Looking ahead, the chatbot can be further developed to incorporate additional features, handle more diverse queries, and expand to other platforms, providing even greater value to retail businesses and their customers. This project lays a strong foundation for ongoing improvements and innovations in the realm of customer support technology.
 
 
