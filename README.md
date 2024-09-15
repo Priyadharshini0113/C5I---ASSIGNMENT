@@ -85,6 +85,106 @@ This structure outlines the flow from user interaction through to the final disp
 ![C5I (2)](https://github.com/user-attachments/assets/53181487-4cdd-4122-ae85-844146488f50)
 
 
+# Database Schema for Retail Support
+
+This provides an overview of the database schema for the `retail_support` database. The schema includes tables for customers, products, sales, sales products, and queries, which are essential for managing customer interactions, sales transactions, and support queries.
+
+### Customers Table
+
+Stores information about customers.
+
+| Column     | Type         | Description                             |
+|------------|--------------|-----------------------------------------|
+| `CustomerID` | `INT`        | Primary key, auto-incremented ID         |
+| `FirstName`  | `VARCHAR(50)`| Customer's first name                    |
+| `LastName`   | `VARCHAR(50)`| Customer's last name                     |
+| `Email`      | `VARCHAR(100)`| Customer's email address                |
+| `Phone`      | `VARCHAR(15)`| Customer's phone number                  |
+| `Address`    | `TEXT`       | Customer's address                       |
+| `City`       | `VARCHAR(50)`| City of the customer                     |
+| `State`      | `VARCHAR(50)`| State of the customer                    |
+| `ZipCode`    | `VARCHAR(10)`| ZIP code of the customer                 |
+
+### Products Table
+
+Stores information about products available for sale.
+
+| Column        | Type           | Description                              |
+|---------------|----------------|------------------------------------------|
+| `ProductID`   | `INT`          | Primary key, auto-incremented ID          |
+| `ProductName` | `VARCHAR(100)` | Name of the product                      |
+| `Category`    | `VARCHAR(50)`  | Category of the product                  |
+| `Price`       | `DECIMAL(10, 2)`| Price of the product                     |
+| `StockQuantity`| `INT`         | Quantity of the product in stock         |
+
+### Sales Table
+
+Records sales transactions.
+
+| Column       | Type          | Description                              |
+|--------------|---------------|------------------------------------------|
+| `SaleID`     | `INT`         | Primary key, auto-incremented ID          |
+| `CustomerID` | `INT`         | Foreign key to `Customers.CustomerID`     |
+| `SaleDate`   | `DATE`        | Date of the sale                          |
+| `TotalAmount`| `DECIMAL(10, 2)`| Total amount of the sale                 |
+
+### Sales_Products Table
+
+Associates products with sales.
+
+| Column      | Type       | Description                                  |
+|-------------|------------|----------------------------------------------|
+| `SaleID`    | `INT`      | Foreign key to `Sales.SaleID`                 |
+| `ProductID` | `INT`      | Foreign key to `Products.ProductID`           |
+| `Quantity`  | `INT`      | Quantity of the product sold                 |
+| Primary Key  | (`SaleID`, `ProductID`) | Composite primary key              |
+
+### Queries Table
+
+Stores customer queries and their responses.
+
+| Column        | Type         | Description                               |
+|---------------|--------------|-------------------------------------------|
+| `QueryID`     | `INT`        | Primary key, auto-incremented ID           |
+| `CustomerID`  | `INT`        | Foreign key to `Customers.CustomerID`      |
+| `QueryDate`   | `DATE`       | Date of the query                         |
+| `QueryText`   | `TEXT`       | Text of the query                         |
+| `ResponseText`| `TEXT`       | Response to the query                     |
+
+# API Endpoints
+
+## 1. POST /chat
+
+**Functionality:**
+
+- **Purpose:** This endpoint is used for handling chat messages sent from the frontend and generating responses based on the message content.
+
+- **Workflow:**
+  1. **Receive Message:** Receives a `POST` request with a `message` in the request body.
+  2. **Process Message with LLM:** Sends the message to the Google Generative AI (LLM) to generate a SQL query or response.
+  3. **Validate Query:** Checks the response from the LLM for validity. If the response contains a valid SQL query, it is executed against the database.
+  4. **Execute SQL Query:** Sends the SQL query to the database via the `queryDatabase` function to fetch or manipulate data.
+  5. **Respond to Frontend:** Sends the result from the database query or an error message back to the frontend as the response to the chat message.
+
+- **Usage in the Project:**
+
+  This endpoint is crucial for handling user input in the chatbot and interacting with the database based on user queries. It integrates natural language processing and SQL query execution to provide meaningful responses.
+
+## 2. GET /query
+
+**Functionality:**
+
+- **Purpose:** This endpoint is used for executing raw SQL queries provided as query parameters and returning the results.
+
+- **Workflow:**
+  1. **Receive Query:** Receives a `GET` request with a SQL query string in the query parameters.
+  2. **Execute Query:** Executes the SQL query against the database using the `queryDatabase` function.
+  3. **Respond with Results:** Returns the results of the SQL query to the client in JSON format.
+
+- **Usage in the Project:**
+
+  This endpoint allows for direct execution of SQL queries, which can be used for debugging or running specific queries. In this project, it is not directly used by the frontend but can be useful for testing or administrative tasks.
+
 # Version Control Setup
 
 ### 1. Clone the Repository
@@ -158,70 +258,29 @@ This structure outlines the flow from user interaction through to the final disp
      ```sh
      git push origin main
      ```
-# Database Schema for Retail Support
+# Running the Project
 
-This provides an overview of the database schema for the `retail_support` database. The schema includes tables for customers, products, sales, sales products, and queries, which are essential for managing customer interactions, sales transactions, and support queries.
+1. **Start the Backend:**
 
-### Customers Table
+   - Open a terminal and navigate to the `chatbot-backend` directory:
+     ```bash
+     cd chatbot-backend
+     ```
+   - Start the backend server:
+     ```bash
+     npm start
+     ```
+   - Ensure the backend is running and accessible at [http://localhost:5000](http://localhost:5000).
 
-Stores information about customers.
+2. **Start the Frontend:**
 
-| Column     | Type         | Description                             |
-|------------|--------------|-----------------------------------------|
-| `CustomerID` | `INT`        | Primary key, auto-incremented ID         |
-| `FirstName`  | `VARCHAR(50)`| Customer's first name                    |
-| `LastName`   | `VARCHAR(50)`| Customer's last name                     |
-| `Email`      | `VARCHAR(100)`| Customer's email address                |
-| `Phone`      | `VARCHAR(15)`| Customer's phone number                  |
-| `Address`    | `TEXT`       | Customer's address                       |
-| `City`       | `VARCHAR(50)`| City of the customer                     |
-| `State`      | `VARCHAR(50)`| State of the customer                    |
-| `ZipCode`    | `VARCHAR(10)`| ZIP code of the customer                 |
-
-### Products Table
-
-Stores information about products available for sale.
-
-| Column        | Type           | Description                              |
-|---------------|----------------|------------------------------------------|
-| `ProductID`   | `INT`          | Primary key, auto-incremented ID          |
-| `ProductName` | `VARCHAR(100)` | Name of the product                      |
-| `Category`    | `VARCHAR(50)`  | Category of the product                  |
-| `Price`       | `DECIMAL(10, 2)`| Price of the product                     |
-| `StockQuantity`| `INT`         | Quantity of the product in stock         |
-
-### Sales Table
-
-Records sales transactions.
-
-| Column       | Type          | Description                              |
-|--------------|---------------|------------------------------------------|
-| `SaleID`     | `INT`         | Primary key, auto-incremented ID          |
-| `CustomerID` | `INT`         | Foreign key to `Customers.CustomerID`     |
-| `SaleDate`   | `DATE`        | Date of the sale                          |
-| `TotalAmount`| `DECIMAL(10, 2)`| Total amount of the sale                 |
-
-### Sales_Products Table
-
-Associates products with sales.
-
-| Column      | Type       | Description                                  |
-|-------------|------------|----------------------------------------------|
-| `SaleID`    | `INT`      | Foreign key to `Sales.SaleID`                 |
-| `ProductID` | `INT`      | Foreign key to `Products.ProductID`           |
-| `Quantity`  | `INT`      | Quantity of the product sold                 |
-| Primary Key  | (`SaleID`, `ProductID`) | Composite primary key              |
-
-### Queries Table
-
-Stores customer queries and their responses.
-
-| Column        | Type         | Description                               |
-|---------------|--------------|-------------------------------------------|
-| `QueryID`     | `INT`        | Primary key, auto-incremented ID           |
-| `CustomerID`  | `INT`        | Foreign key to `Customers.CustomerID`      |
-| `QueryDate`   | `DATE`       | Date of the query                         |
-| `QueryText`   | `TEXT`       | Text of the query                         |
-| `ResponseText`| `TEXT`       | Response to the query                     |
-
+   - Open another terminal and navigate to the `chatbot-frontend` directory:
+     ```bash
+     cd chatbot-frontend
+     ```
+   - Start the frontend server:
+     ```bash
+     npm start
+     ```
+   - The frontend should be running and accessible at [http://localhost:3000](http://localhost:3000).
 
