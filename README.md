@@ -313,3 +313,17 @@ Stores customer queries and their responses.
 - **Solution:** Optimize the API calls and query handling to ensure efficient processing. Consider implementing caching strategies and load balancing to manage performance and scalability.
 
 By leveraging the `gemini-1.5-flash` model from Google Generative AI and addressing these challenges with targeted solutions, the integration ensures effective handling of natural language queries and reliable generation of SQL queries, enhancing the overall functionality and usability of the chatbot system.
+
+
+
+![Screenshot 2024-09-16 015252](https://github.com/user-attachments/assets/15cd9d3c-40be-4419-972a-335a85b0ac5f)
+![Screenshot 2024-09-16 015446](https://github.com/user-attachments/assets/a35dc0c0-1365-4cbd-b2cc-6c3313b368df)
+![Screenshot 2024-09-16 015532](https://github.com/user-attachments/assets/85923098-310d-4128-a0c6-9b07233e6c3e)
+![Screenshot 2024-09-16 015734](https://github.com/user-attachments/assets/489c280e-80e0-41c3-bdbd-6a14ab983d1b)
+![Screenshot 2024-09-16 015748](https://github.com/user-attachments/assets/44619c0a-1f14-4f35-a650-b698449b7be5)
+![Screenshot 2024-09-16 022724](https://github.com/user-attachments/assets/f3530100-570b-4918-836a-02babf569ce7)
+![Screenshot 2024-09-16 023549](https://github.com/user-attachments/assets/87a69396-0652-494b-a47a-4da135c58169)
+![Screenshot 2024-09-16 023733](https://github.com/user-attachments/assets/fbf32049-a5c1-4cf1-adbb-65b38855b368)
+![Screenshot 2024-09-16 023925](https://github.com/user-attachments/assets/08306035-0c41-4a5a-851f-a93cd8c75f61)
+
+
